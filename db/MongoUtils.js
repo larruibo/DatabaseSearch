@@ -22,7 +22,6 @@ function MongoUtils() {
         return mu
             .connect()
             .then(cliente => {
-                console.log("cliente", cliente);
                 return cliente
                     .db()
                     .admin()
@@ -30,25 +29,22 @@ function MongoUtils() {
                     .finally(() => cliente.close());
             })
             .then(dbs => {
-                console.log("dbs", dbs);
                 return dbs.databases;
             });
     };
 
-    mu.algo.listCollections = () => {
+    mu.algo.listCollections = _dbName => {
         console.log("Listing Collections");
         return mu
             .connect()
             .then(cliente => {
-                console.log("cliente", cliente);
                 return cliente
-                    .db(dbName)
+                    .db(_dbName)
                     .listCollections()
                     .toArray()
                     .finally(() => cliente.close());
             })
             .then(cols => {
-                console.log("Cols", cols);
                 return cols;
             });
     };
