@@ -14,10 +14,16 @@
           <form id="algoForm" action="algo/create" method="POST">
             <div class="form-group">
               <label for="dataBase">Select your dataBase:</label>
-              <select name="pets" id="pet-select">
+              <select name="dataBase" id="dataBase-select">
                 <% dataBases.forEach( (dataBase) => { %>
-                  <option value="dog"><%= dataBase.name %></option>
+                  <option value="<%= dataBase.name %>"><%= dataBase.name %></option>
                 <% }) %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="collection">Select your collection:</label>
+              <select name="collection" id="">
+
               </select>
             </div>
           </form>
