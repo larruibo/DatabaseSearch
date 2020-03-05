@@ -12,38 +12,45 @@ function MongoUtils() {
         const url = `mongodb://${hostname}:${port}`;
         const client = new MongoClient(url, { useUnifiedTopology: true });
         console.log("Connecting");
-
         return client.connect();
     };
 
     mu.algo = {};
 
     mu.algo.listDataBases = () => {
-        mu.connect()
-            .then(cliente =>
-                cliente
+        console.log("Listing DataBases");
+        return mu
+            .connect()
+            .then(cliente => {
+                console.log("cliente", cliente);
+                return cliente
                     .db()
                     .admin()
                     .listDatabases()
-            )
-            .then(dbs => {
-                console.log("Databases", dbs);
+                    .finally(() => cliente.close());
             })
-            .finally(() => client.close());
+            .then(dbs => {
+                console.log("dbs", dbs);
+                return dbs.databases;
+            });
     };
 
     mu.algo.listCollections = () => {
-        mu.connect()
-            .then(cliente =>
-                cliente
+        console.log("Listing Collections");
+        return mu
+            .connect()
+            .then(cliente => {
+                console.log("cliente", cliente);
+                return cliente
                     .db(dbName)
                     .listCollections()
                     .toArray()
-            )
-            .then(cols => {
-                console.log("Collections", cols);
+                    .finally(() => cliente.close());
             })
-            .finally(() => client.close());
+            .then(cols => {
+                console.log("Cols", cols);
+                return cols;
+            });
     };
 
     //Find documents in DB

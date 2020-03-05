@@ -4,12 +4,10 @@ const mu = require("../db/MongoUtils.js");
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-    mu.algo.listDataBases();
-    mu.algo.listCollections();
-    mu.algo.find().then(algo => {
+    mu.algo.listDataBases().then(dataBases => {
         console.log("We did it");
+        res.render("index", { title: "Mongo Explorer", dataBases: dataBases });
     });
-    res.render("index", { AlgunaCosa: "Alguna Cosa" });
 });
 
 module.exports = router;
