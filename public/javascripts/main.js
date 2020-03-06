@@ -18,13 +18,11 @@ const updateCols = colecciones => {
 };
 
 const createRegister = registro => {
-    const createTitle = document.querySelector("#create");
-    const divTitle = document.createElement("h2");
-    divTitle.innerHTML = "Create";
-    createTitle.insertBefore(divTitle, createTitle.firstChild);
-
     const create = document.querySelector("#createForm");
     create.innerHTML = "";
+    const divTitle = document.createElement("h2");
+    divTitle.innerHTML = "Create";
+    create.appendChild(divTitle);
     for (let item in registro) {
         if (item !== "_id") {
             const div = document.createElement("div");
