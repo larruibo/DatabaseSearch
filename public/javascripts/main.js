@@ -25,17 +25,17 @@ updateInfo = coleccion => {
     coleccion.forEach(registro => {
         const div = document.createElement("div");
         const div2 = document.createElement("div");
-        div2.classList.add("col-3");
+        div2.classList.add("col-2");
         const number = document.createElement("h5");
         number.textContent = contador;
         div2.appendChild(number);
         info.appendChild(div2);
 
         const div3 = document.createElement("div");
-        div3.classList.add("col-9");
+        div3.classList.add("col-10");
         for (let item in registro) {
             const texto = document.createElement("p");
-            texto.textContent = `${item}: ${registro.item}`;
+            texto.textContent = `${item}: ${registro[item]}`;
             div3.appendChild(texto);
         }
         info.appendChild(div3);
