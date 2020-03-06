@@ -19,7 +19,7 @@ router.get("/", function(req, res, next) {
 });
 
 //Endpoint to get collections
-router.get("/databases/:query", (req, res) => {
+router.get("/:query", (req, res) => {
     const nombre = req.params.query;
     console.log(nombre);
     const name = new RegExp(`.*${req.params.query}.*`, "i");
@@ -27,6 +27,15 @@ router.get("/databases/:query", (req, res) => {
     const query = { name: name };
     console.log(query);
     mu.algo.listCollections(nombre).then(collections => res.json(collections));
+});
+
+//Endpoint to get data from collection
+router.get("/:db/:col", (req, res) => {
+    _dbName = req.params.db;
+    _colName = req.params.col;
+    console.log(_dbName);
+    console.log(_colName);
+    mu.algo.find(_dbName, _colName).then(collections => res.json(collections));
 });
 
 module.exports = router;

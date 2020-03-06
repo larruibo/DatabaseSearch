@@ -50,12 +50,13 @@ function MongoUtils() {
     };
 
     //Find documents in DB
-    mu.algo.find = query =>
+    mu.algo.find = (_dbName, _colName, query) =>
         mu.connect().then(client => {
-            const algoCol = client.db(dbName).collection(colName);
+            const algoCol = client.db(_dbName).collection(_colName);
             return algoCol
                 .find(query)
-                .sort({ timestamp: -1 })
+                .limit(20)
+                .sort({ _id: -1 })
                 .toArray()
                 .finally(() => client.close());
         });
