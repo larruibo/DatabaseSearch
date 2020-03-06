@@ -1,7 +1,7 @@
 const dataBase = document.querySelector("#dataBase-select");
 const collection = document.querySelector("#collection-select");
 
-updateCols = colecciones => {
+const updateCols = colecciones => {
     const collections = document.querySelector("#collection-select");
     collections.innerHTML = "";
 
@@ -17,12 +17,51 @@ updateCols = colecciones => {
     });
 };
 
-updateInfo = coleccion => {
+const createRegister = registro => {
+    const createTitle = document.querySelector("#create");
+    const divTitle = document.createElement("h2");
+    divTitle.innerHTML = "Create";
+    createTitle.insertBefore(divTitle, createTitle.firstChild);
+
+    const create = document.querySelector("#createForm");
+    create.innerHTML = "";
+    for (let item in registro) {
+        if (item !== "_id") {
+            const div = document.createElement("div");
+            div.classList.add("form-group");
+            const label = document.createElement("label");
+            label.setAttribute("for", item);
+            label.innerHTML = item;
+
+            const input = document.createElement("input");
+            input.setAttribute("name", item);
+            input.classList.add("form-control");
+
+            div.appendChild(label);
+            div.appendChild(input);
+            create.appendChild(div);
+        }
+    }
+
+    const button = document.createElement("button");
+    button.classList.add("btn");
+    button.classList.add("btn-primary");
+    button.setAttribute("type", "submit");
+    button.innerHTML = "Create";
+
+    create.appendChild(button);
+};
+
+const updateInfo = coleccion => {
     let contador = 1;
     const info = document.querySelector("#info");
     info.innerHTML = "";
 
     coleccion.forEach(registro => {
+        if (contador === 1) {
+            let reg = registro;
+            createRegister(registro);
+        }
         const div = document.createElement("div");
         const div2 = document.createElement("div");
         div2.classList.add("col-2");
