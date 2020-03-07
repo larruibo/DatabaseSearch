@@ -17,6 +17,7 @@ function MongoUtils() {
 
     mu.algo = {};
 
+    //List all databases
     mu.algo.listDataBases = () => {
         console.log("Listing DataBases");
         return mu
@@ -33,6 +34,7 @@ function MongoUtils() {
             });
     };
 
+    //List all collections
     mu.algo.listCollections = _dbName => {
         console.log("Listing Collections");
         return mu
@@ -61,6 +63,12 @@ function MongoUtils() {
                 .finally(() => client.close());
         });
 
+    //Find one document in db
+    mu.algo.findOne = (_dbName, _colName, query) =>
+        mu.connect().then(client => {
+            const algoCol = client.db(_dbName).collection(_colName);
+            return algoCol.findOne(query).finally(() => client.close());
+        });
     //Insert documents in DB
     mu.algo.insert = (_dbName, _colName, algo) =>
         mu.connect().then(client => {
@@ -73,6 +81,13 @@ function MongoUtils() {
         mu.connect().then(client => {
             const algoCol = client.db(_dbName).collection(_colName);
             return algoCol.deleteOne(algo).finally(() => client.close());
+        });
+
+    //Update a document
+    mu.algo.updateOne = (_dbName, _colName, algo, nuevo) =>
+        mu.connect().then(client => {
+            const algoCol = client.db(_dbName).collection(_colName);
+            return algoCol.updateOne(algo, nuevo).finally(() => client.close());
         });
 
     return mu;

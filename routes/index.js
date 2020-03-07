@@ -22,11 +22,6 @@ router.get("/", function(req, res, next) {
 //Endpoint to get collections
 router.get("/:query", (req, res) => {
     const nombre = req.params.query;
-    console.log(nombre);
-    const name = new RegExp(`.*${req.params.query}.*`, "i");
-    console.log(name);
-    const query = { name: name };
-    console.log(query);
     mu.algo.listCollections(nombre).then(collections => res.json(collections));
 });
 
@@ -34,8 +29,6 @@ router.get("/:query", (req, res) => {
 router.get("/:db/:col", (req, res) => {
     const _dbName = req.params.db;
     const _colName = req.params.col;
-    console.log(_dbName);
-    console.log(_colName);
     mu.algo.find(_dbName, _colName).then(collections => res.json(collections));
 });
 
@@ -47,14 +40,15 @@ router.post("/:db/:col/create", (req, res) => {
     let data = req.body;
     const registro = {};
     for (let item in data) {
-        console.log(item, data[item]);
         registro[item] = data[item];
     }
-    console.log(registro);
     mu.algo.insert(_dbName, _colName, registro).then(res.redirect("/"));
 });
 
 //Endpoint to delete a register
+//Intenté hacerlo de muchas maneras, pero HTML solo permite hacer GET y POST en los formularios.
+//Leí en internet que con un middleware de method_override se puede hacer que un post se convierta
+//en Delete con un ?=_method=DELETE pero no pude implementarlo.
 router.post("/:db/:col/:id", (req, res) => {
     const _dbName = req.params.db;
     const _colName = req.params.col;
@@ -62,8 +56,36 @@ router.post("/:db/:col/:id", (req, res) => {
 
     const query = { _id: new ObjectId(_id) };
 
-    console.log(query);
     mu.algo.remove(_dbName, _colName, query).then(res.redirect("/"));
+});
+
+//Endpoint findOne
+router.get("/:db/:col/:id", (req, res) => {
+    const _dbName = req.params.db;
+    const _colName = req.params.col;
+    const _id = req.params.id;
+
+    const query = { _id: new ObjectId(_id) };
+
+    mu.algo.findOne(_dbName, _colName, query).then(record => res.json(record));
+});
+
+//Endpoint updateOne
+router.post("/:db/:col/:id/update", (req, res) => {
+    const _dbName = req.params.db;
+    const _colName = req.params.col;
+    const _id = req.params.id;
+    const data = req.body;
+    const registro = {};
+    for (let item in data) {
+        registro[item] = data[item];
+    }
+
+    const final = { $set: registro };
+
+    const query = { _id: new ObjectId(_id) };
+
+    mu.algo.updateOne(_dbName, _colName, query, final).then(res.redirect("/"));
 });
 
 module.exports = router;
