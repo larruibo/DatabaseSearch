@@ -78,7 +78,7 @@ const createRegister = registro => {
         "action",
         `/${dataBase.value}/${collection.value}/create`
     );
-    const divTitle = document.createElement("h2");
+    const divTitle = document.createElement("h1");
     divTitle.innerHTML = "Create";
     create.appendChild(divTitle);
     for (let item in registro) {
@@ -130,7 +130,7 @@ const updateInfo = coleccion => {
         const div = document.createElement("div");
         div.classList.add("row");
         const div2 = document.createElement("div");
-        div2.classList.add("col-2");
+        div2.classList.add("col-4");
         const number = document.createElement("h5");
         number.textContent = contador;
         div2.appendChild(number);
@@ -147,7 +147,7 @@ const updateInfo = coleccion => {
 
         const bot1 = document.createElement("button");
         bot1.classList.add("btn");
-        bot1.classList.add("btn-warning");
+        bot1.classList.add("btn-info");
         bot1.textContent = "Update";
         bot1.setAttribute("onclick", `modRegister("${registro["_id"]}")`);
 
@@ -166,10 +166,10 @@ const updateInfo = coleccion => {
 
         const ultDiv = document.createElement("div");
         ultDiv.classList.add("col-2");
-        ultDiv.appendChild(bot1);
-        ultDiv.appendChild(form2);
+        div2.appendChild(bot1);
+        div2.appendChild(form2);
         div.appendChild(div3);
-        div.appendChild(ultDiv);
+        //div.appendChild(ultDiv);
         info.appendChild(div);
         contador += 1;
     });
