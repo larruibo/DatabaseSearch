@@ -1,6 +1,10 @@
 # DatabaseSearch
 
 ## Description
+![alt text][logo]
+
+[logo]: https://github.com/larruibo/DatabaseSearch/blob/master/public/images/img.png?raw=true "Imagen de la aplicación"
+
 
 Page that shows the MongoDB databases that are in your PC, with their collections and documents.
 You can create new documents, update, or delete them.
