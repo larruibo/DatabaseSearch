@@ -9,9 +9,9 @@ function MongoUtils() {
 
     //Connection to db
     mu.connect = () => {
-        const uri = proccess.env.MONGO_DB_ATLAS;
+        const uri = process.env.MONGO_DB_ATLAS;
         const url = `mongodb://${hostname}:${port}`;
-        const client = new MongoClient(url, { useUnifiedTopology: true });
+        const client = new MongoClient(uri, { useUnifiedTopology: true });
         console.log("Connecting");
         return client.connect();
     };

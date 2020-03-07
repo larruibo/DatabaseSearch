@@ -11,6 +11,8 @@ This is the option 1B. Basic requirements, deployment, create-update-delete befo
 
 ## Demo
 
+-   [You can check the app here](https://mongodb-search.herokuapp.com)
+
 ## How to run locally
 
 You will need node.js and Mongodb installed in your machine. You will also need Mongodb running in the background.
@@ -21,7 +23,7 @@ After cloning the repository, use
 
 to install all the project dependencies.
 
-I used env variables, so you will need to create a .env file in the root of the project. This project runs locally, so create the variables DB_HOST and DB_PORT that suits to your mongo configuration.
+I used env variables, so you will need to create a .env file in the root of the project. This project runs locally, so create the variables DB_HOST and DB_PORT that suits to your mongo configuration. Also, you can select a MongoDB Atlas database, in that case, you will need to create another env variable called MONGO_DB_ATLAS and assign the source of your db. You will need to change the file /db/MongoUtils.js in order to select your local or atlas db.
 
 After that, you can run the server with
 
