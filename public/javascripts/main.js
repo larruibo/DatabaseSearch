@@ -59,27 +59,66 @@ const updateInfo = coleccion => {
     const info = document.querySelector("#info");
     info.innerHTML = "";
 
+    const otroDiv = document.createElement("div");
+    otroDiv.classList.add("col-12");
+    const title = document.createElement("h1");
+    title.textContent = "Info";
+    otroDiv.appendChild(title);
+    info.appendChild(otroDiv);
+
     coleccion.forEach(registro => {
         if (contador === 1) {
             let reg = registro;
             createRegister(registro);
         }
         const div = document.createElement("div");
+        div.classList.add("row");
         const div2 = document.createElement("div");
         div2.classList.add("col-2");
         const number = document.createElement("h5");
         number.textContent = contador;
         div2.appendChild(number);
-        info.appendChild(div2);
+        div.appendChild(div2);
 
         const div3 = document.createElement("div");
-        div3.classList.add("col-10");
+        div3.classList.add("col-8");
         for (let item in registro) {
             const texto = document.createElement("p");
             texto.textContent = `${item}: ${registro[item]}`;
             div3.appendChild(texto);
         }
-        info.appendChild(div3);
+        const form1 = document.createElement("form");
+        form1.setAttribute("method", "post");
+        form1.setAttribute(
+            "action",
+            `/${dataBase.value}/${collection.value}/${registro["_id"]}`
+        );
+        const bot1 = document.createElement("button");
+        bot1.classList.add("btn");
+        bot1.classList.add("btn-warning");
+        bot1.textContent = "Modificar";
+        form1.appendChild(bot1);
+
+        const form2 = document.createElement("form");
+        form2.setAttribute("method", "post");
+        form2.setAttribute(
+            "action",
+            `/${dataBase.value}/${collection.value}/${registro["_id"]}`
+        );
+        const bot2 = document.createElement("button");
+        bot2.classList.add("btn");
+        bot2.classList.add("btn-danger");
+        bot2.textContent = "Eliminar";
+        bot2.setAttribute("type", "submit");
+        form2.appendChild(bot2);
+
+        const ultDiv = document.createElement("div");
+        ultDiv.classList.add("col-2");
+        ultDiv.appendChild(form1);
+        ultDiv.appendChild(form2);
+        div.appendChild(div3);
+        div.appendChild(ultDiv);
+        info.appendChild(div);
         contador += 1;
     });
 };

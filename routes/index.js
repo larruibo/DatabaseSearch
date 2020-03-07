@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const mu = require("../db/MongoUtils.js");
+ObjectId = require("mongodb").ObjectID;
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -51,6 +52,18 @@ router.post("/:db/:col/create", (req, res) => {
     }
     console.log(registro);
     mu.algo.insert(_dbName, _colName, registro).then(res.redirect("/"));
+});
+
+//Endpoint to delete a register
+router.post("/:db/:col/:id", (req, res) => {
+    const _dbName = req.params.db;
+    const _colName = req.params.col;
+    const _id = req.params.id;
+
+    const query = { _id: new ObjectId(_id) };
+
+    console.log(query);
+    mu.algo.remove(_dbName, _colName, query).then(res.redirect("/"));
 });
 
 module.exports = router;

@@ -68,6 +68,13 @@ function MongoUtils() {
             return algoCol.insertOne(algo).finally(() => client.close());
         });
 
+    //Remove a document from DB
+    mu.algo.remove = (_dbName, _colName, algo) =>
+        mu.connect().then(client => {
+            const algoCol = client.db(_dbName).collection(_colName);
+            return algoCol.deleteOne(algo).finally(() => client.close());
+        });
+
     return mu;
 }
 
