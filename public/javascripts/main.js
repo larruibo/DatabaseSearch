@@ -20,6 +20,10 @@ const updateCols = colecciones => {
 const createRegister = registro => {
     const create = document.querySelector("#createForm");
     create.innerHTML = "";
+    create.setAttribute(
+        "action",
+        `/${dataBase.value}/${collection.value}/create`
+    );
     const divTitle = document.createElement("h2");
     divTitle.innerHTML = "Create";
     create.appendChild(divTitle);

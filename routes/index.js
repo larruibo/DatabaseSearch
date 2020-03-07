@@ -31,11 +31,26 @@ router.get("/:query", (req, res) => {
 
 //Endpoint to get data from collection
 router.get("/:db/:col", (req, res) => {
-    _dbName = req.params.db;
-    _colName = req.params.col;
+    const _dbName = req.params.db;
+    const _colName = req.params.col;
     console.log(_dbName);
     console.log(_colName);
     mu.algo.find(_dbName, _colName).then(collections => res.json(collections));
+});
+
+//Endpoint to create a new register
+router.post("/:db/:col/create", (req, res) => {
+    const _dbName = req.params.db;
+    const _colName = req.params.col;
+
+    let data = req.body;
+    const registro = {};
+    for (let item in data) {
+        console.log(item, data[item]);
+        registro[item] = data[item];
+    }
+    console.log(registro);
+    mu.algo.insert(_dbName, _colName, registro).then(res.redirect("/"));
 });
 
 module.exports = router;

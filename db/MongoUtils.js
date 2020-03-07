@@ -62,9 +62,9 @@ function MongoUtils() {
         });
 
     //Insert documents in DB
-    mu.algo.insert = algo =>
+    mu.algo.insert = (_dbName, _colName, algo) =>
         mu.connect().then(client => {
-            const algoCol = client.db(dbName).collection(colName);
+            const algoCol = client.db(_dbName).collection(_colName);
             return algoCol.insertOne(algo).finally(() => client.close());
         });
 
